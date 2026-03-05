@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Март 8 – Олон улсын эмэгтэйчүүдийн өдөр</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blush: #f4c2c2;
+    --rose: #e8738a;
+    --deep-rose: #c0415d;
+    --gold: #d4a853;
+    --gold-light: #f0d080;
+    --cream: #fdf6f0;
+    --dark: #2a1a22;
+    --mid: #5a3045;
+    --soft: #f9eef3;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #2a1a22 0%, #4a2035 40%, #8b3a5a 75%, #c05070 100%);
+  }
+
+  /* floating petals */
+  .petals { position: absolute; inset: 0; pointer-events: none; }
+  .petal {
+    position: absolute;
+    border-radius: 50% 0 50% 0;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-60px) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.3; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* sparkles */
+  .sparkle-field { position: absolute; inset: 0; pointer-events: none; }
+  .spark {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    animation: twinkle ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 0; transform: scale(0.5); }
+    50%      { opacity: 1; transform: scale(1.5); }
+  }
+
+  .hero-inner { position: relative; z-index: 2; padding: 2rem; }
+
+  .date-badge {
+    display: inline-block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    border: 1px solid rgba(212,168,83,0.4);
+    padding: 0.45rem 1.6rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    font-weight: 300;
+    color: #fff;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--blush);
+    display: block;
+  }
+  .hero-title strong {
+    font-weight: 600;
+    color: var(--gold-light);
+    display: block;
+    font-size: 0.55em;
+    letter-spacing: 0.15em;
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-weight: 200;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+
+  .scroll-cta {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeUp 1s 0.7s ease both;
+    cursor: pointer;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .scroll-cta .arrow {
+    width: 30px; height: 30px;
+    border-right: 1.5px solid var(--gold);
+    border-bottom: 1.5px solid var(--gold);
+    transform: rotate(45deg);
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)} }
+
+  /* big rose decoration */
+  .hero-rose {
+    position: absolute;
+    right: -8vw; bottom: -5vw;
+    width: min(55vw, 460px);
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 1;
+    animation: rotateRose 60s linear infinite;
+  }
+  @keyframes rotateRose { to { transform: rotate(360deg); } }
+
+  /* ── AGENDA SECTION ── */
+  .agenda-section {
+    padding: 6rem 1.5rem 4rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 300;
+    color: var(--dark);
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+  .section-title em { font-style: italic; color: var(--deep-rose); }
+
+  /* timeline */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--rose), var(--gold), transparent);
+  }
+
+  .event-card {
+    position: relative;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .event-card.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* dot on timeline */
+  .event-card::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 1.3rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 3px var(--rose);
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .event-inner {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid rgba(232,115,138,0.15);
+    box-shadow: 0 4px 24px rgba(42,26,34,0.07);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    overflow: hidden;
+    position: relative;
+  }
+  .event-inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(244,194,194,0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .event-inner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(192,65,93,0.15);
+    border-color: rgba(232,115,138,0.4);
+  }
+  .event-inner:hover::after { opacity: 1; }
+
+  .event-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .event-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .event-time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--mid);
+    line-height: 1;
+  }
+  .event-time span {
+    font-size: 0.85rem;
+    color: var(--rose);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .event-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .event-desc {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(232,115,138,0.2);
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: #7a5060;
+    line-height: 1.7;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin-top 0.3s;
+  }
+  .event-card.open .event-desc {
+    max-height: 200px;
+  }
+
+  /* evening special card */
+  .event-card.special .event-inner {
+    background: linear-gradient(135deg, #2a1a22 0%, #4a2035 100%);
+    border-color: rgba(212,168,83,0.3);
+    color: #fff;
+  }
+  .event-card.special .event-inner:hover {
+    box-shadow: 0 12px 40px rgba(212,168,83,0.25);
+    border-color: var(--gold);
+  }
+  .event-card.special .event-time { color: var(--gold-light); }
+  .event-card.special .event-time span { color: var(--blush); }
+  .event-card.special .event-name { color: var(--gold-light); }
+  .event-card.special .event-desc {
+    color: rgba(255,255,255,0.65);
+    border-top-color: rgba(212,168,83,0.2);
+  }
+  .event-card.special::before {
+    background: var(--gold);
+    box-shadow: 0 0 0 3px var(--deep-rose);
+  }
+
+  .karaoke-pulse {
+    display: inline-block;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
+
+  .badge-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+  }
+
+  /* ── COUNTDOWN ── */
+  .countdown-section {
+    background: linear-gradient(135deg, #f9eef3 0%, #fdf0e8 100%);
+    padding: 4rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid rgba(232,115,138,0.1);
+    border-bottom: 1px solid rgba(232,115,138,0.1);
+  }
+  .countdown-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .countdown-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.2rem 1.6rem;
+    min-width: 90px;
+    border: 1px solid rgba(232,115,138,0.15);
+    box-shadow: 0 4px 20px rgba(42,26,34,0.06);
+  }
+  .countdown-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--deep-rose);
+    line-height: 1;
+  }
+  .countdown-unit {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #a07080;
+    margin-top: 0.3rem;
+    font-weight: 400;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    background: var(--dark);
+    color: rgba(255,255,255,0.4);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+  .footer-rose { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+
+  /* ── UTILS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* progress bar */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--rose), var(--gold));
+    z-index: 1000;
+    width: 0%;
+    transition: width 0.1s;
+  }
+
+  /* time indicator */
+  .now-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--rose);
+    color: #fff;
+    padding: 0.2rem 0.7rem;
+    border-radius: 100px;
+    margin-left: 0.8rem;
+    vertical-align: middle;
+  }
+  .now-dot {
+    width: 6px; height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    animation: blink 1s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.2} }
+
+  @media(max-width:480px) {
+    .event-header { flex-direction: column; align-items: flex-start; }
+    .event-name { margin-left: 0; text-align: left; }
+    .countdown-grid { gap: 0.8rem; }
+    .countdown-box { min-width: 70px; padding: 1rem 1rem; }
+    .countdown-num { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="petals" id="petals"></div>
+  <div class="sparkle-field" id="sparkles"></div>
+
+  <!-- SVG rose decoration -->
+  <svg class="hero-rose" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="90" stroke="white" stroke-width="0.5"/>
+    <circle cx="100" cy="100" r="70" stroke="white" stroke-width="0.5"/>
+    <path d="M100 10 C130 40 160 40 190 70 C160 100 160 130 130 160 C100 190 70 190 40 160 C10 130 10 100 40 70 C70 40 70 10 100 10Z" stroke="white" stroke-width="0.8" fill="none"/>
+    <path d="M100 30 C120 55 145 55 170 80 C145 105 145 130 120 155 C95 180 70 180 45 155 C20 130 20 105 45 80 C70 55 80 30 100 30Z" stroke="white" stroke-width="0.6" fill="none"/>
+    <circle cx="100" cy="100" r="10" stroke="white" stroke-width="1"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="date-badge">🌹 2025 · Олон Улсын · Эмэгтэйчүүдийн өдөр</div>
+    <h1 class="hero-title">
+      <em>Март</em>
+      <strong>8</strong>
+    </h1>
+    <p class="hero-sub">Өдрийн хөтөлбөр — Day Program</p>
+    <a class="scroll-cta" href="#agenda">
+      Хөтөлбөр харах
+      <div class="arrow"></div>
+    </a>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section" id="countdown-sec">
+  <div class="countdown-label">🌸 Хүлээн авалт хүртэл</div>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--mid);margin-bottom:0.5rem;">
+    Орой <em style="font-style:italic;color:var(--deep-rose)">19:00</em> хүртэл
+  </h2>
+  <div class="countdown-grid">
+    <div class="countdown-box">
+      <div class="countdown-num" id="cd-h">--</div>
+      <div class="countdown-unit">Цаг</div>
+    </div>
+    <div class="countdown-box">
+      <div class="countdown-num" id="cd-m">--</div>
+      <div class="countdown-unit">Минут</div>
+    </div>
+    <div class="countdown-box">
+      <div class="countdown-num" id="cd-s">--</div>
+      <div class="countdown-unit">Секунд</div>
+    </div>
+  </div>
+  <p style="margin-top:1.2rem;font-size:0.8rem;color:#b08090;letter-spacing:0.05em;">Март 8 баярын хүлээн авалт • Karaoke 🎤</p>
+</section>
+
+<!-- AGENDA -->
+<section class="agenda-section" id="agenda">
+  <div class="section-label">🗓 Өдрийн хөтөлбөр</div>
+  <h2 class="section-title">Март <em>8-ний</em><br>Хөтөлбөр</h2>
+
+  <div class="timeline" id="timeline">
+
+    <!-- Event 1: Угталт -->
+    <div class="event-card" data-index="0">
+      <div class="event-inner" onclick="toggleCard(this)">
+        <div class="event-header">
+          <div class="event-icon" style="background:linear-gradient(135deg,#f4c2c2,#f9d4dc);">🌸</div>
+          <div class="event-time">
+            07:30 – 10:00
+            <span>Угталт · Welcome</span>
+          </div>
+          <div class="event-name">Угталт</div>
+        </div>
+        <div class="event-desc">
+          Эрхэм зочдыг тосон угтах, бүртгэл хийх. Та бүхнийг дулааны мэндчилгээгээр угтан авч, өдрийн хөтөлбөртэй танилцуулна. Хүрэлцэн ирсэн бүгдийн маань нүүрэнд баярын ялаг тод харагдаг энэ өглөөг хамтдаа эхэлцгээе! 🌹
+        </div>
+      </div>
+    </div>
+
+    <!-- Event 2: Coffee Break -->
+    <div class="event-card" data-index="1">
+      <div class="event-inner" onclick="toggleCard(this)">
+        <div class="event-header">
+          <div class="event-icon" style="background:linear-gradient(135deg,#d4a853,#f0d080);">☕</div>
+          <div class="event-time">
+            10:30 – 11:00
+            <span>Coffee Break · Завсарлага</span>
+          </div>
+          <div class="event-name">Coffee Break</div>
+        </div>
+        <div class="event-desc">
+          Амрах, нөхөрсөг яриа хэлэлцүүлэг. Амттай кофе, цайгаар зочлогдон баярын мэндчилгээ солилцоно. Шинэ танилцлага, нөхөрлөлийн цаг! ☕✨
+        </div>
+      </div>
+    </div>
+
+    <!-- Event 3: Lunch -->
+    <div class="event-card" data-index="2">
+      <div class="event-inner" onclick="toggleCard(this)">
+        <div class="event-header">
+          <div class="event-icon" style="background:linear-gradient(135deg,#e8738a,#f4a0b0);">🍽️</div>
+          <div class="event-time">
+            12:30 – 13:30
+            <span>Lunch · Үдийн хоол</span>
+          </div>
+          <div class="event-name">Lunch</div>
+        </div>
+        <div class="event-desc">
+          Хамтдаа үдийн хоол барих цаг. Дулаан ярианы дунд хооллоно. Нөхөрлөл, баяр хөөрийн дунд нэг ширээний эргэн тойронд цуглана! 🥂
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div style="display:flex;align-items:center;gap:1rem;margin:2rem 0;opacity:0;transition:opacity 0.6s 0.5s;" class="divider-row">
+      <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,var(--blush));"></div>
+      <span style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);white-space:nowrap;">Ажлын цаг дуусна ✨</span>
+      <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,var(--blush));"></div>
+    </div>
+
+    <!-- Event 4: Karaoke Evening -->
+    <div class="event-card special" data-index="3">
+      <div class="event-inner" onclick="toggleCard(this)">
+        <div class="event-header">
+          <div class="event-icon" style="background:linear-gradient(135deg,#d4a853,#8b5a2b);font-size:1.4rem;">
+            <span class="karaoke-pulse">🎤</span>
+          </div>
+          <div class="event-time">
+            19:00 хэмжих
+            <span>Oroi · Evening Event <span class="badge-new">✨ Special</span></span>
+          </div>
+          <div class="event-name">Баярын Хүлээн авалт</div>
+        </div>
+        <div class="event-desc">
+          🎉 Март 8 баярын хүлээн авалт — Karaoke шөнө! Орой 7 цагаас эхлэн баярлан дуулж, бүжиглэн мартагдашгүй шөнийг хамтдаа өнгөрүүлцгээе. Хамаг болзол, хамаг алдрыг орхиод, зөвхөн хөгжилтэй байцгаая! 🌹🥂🎶
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-rose">🌹</span>
+  Олон улсын эмэгтэйчүүдийн өдрөөр халуун мэндчилгээ дэвшүүлье!<br>
+  <span style="color:rgba(255,255,255,0.2);display:block;margin-top:0.5rem;">Happy International Women's Day · March 8</span>
+</footer>
+
+<script>
+  // ── Petals ──
+  (function() {
+    const container = document.getElementById('petals');
+    const colors = ['#f4c2c2','#e8738a','#f9d4dc','#d4a853','#fce4ec'];
+    for (let i = 0; i < 22; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      const size = 6 + Math.random() * 14;
+      p.style.cssText = `
+        left:${Math.random()*100}%;
+        top:${Math.random()*100}%;
+        width:${size}px;
+        height:${size}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        animation-duration:${6+Math.random()*10}s;
+        animation-delay:${Math.random()*8}s;
+        border-radius:${Math.random()>0.5?'50% 0 50% 0':'50%'};
+      `;
+      container.appendChild(p);
+    }
+  })();
+
+  // ── Sparkles ──
+  (function() {
+    const container = document.getElementById('sparkles');
+    for (let i = 0; i < 50; i++) {
+      const s = document.createElement('div');
+      s.className = 'spark';
+      s.style.cssText = `
+        left:${Math.random()*100}%;
+        top:${Math.random()*100}%;
+        animation-duration:${1.5+Math.random()*3}s;
+        animation-delay:${Math.random()*3}s;
+      `;
+      container.appendChild(s);
+    }
+  })();
+
+  // ── Scroll Progress ──
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = (window.scrollY / docH) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+  });
+
+  // ── Intersection Observer for cards ──
+  const cards = document.querySelectorAll('.event-card');
+  const divider = document.querySelector('.divider-row');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = e.target.dataset.index;
+        setTimeout(() => {
+          e.target.classList.add('visible');
+        }, idx ? idx * 120 : 0);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  cards.forEach(c => obs.observe(c));
+
+  const divObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity = '1'; divObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.3 });
+  if (divider) divObs.observe(divider);
+
+  // ── Toggle card expand ──
+  function toggleCard(inner) {
+    const card = inner.closest('.event-card');
+    const wasOpen = card.classList.contains('open');
+    document.querySelectorAll('.event-card').forEach(c => c.classList.remove('open'));
+    if (!wasOpen) card.classList.add('open');
+  }
+
+  // ── "NOW" badge ──
+  function checkNow() {
+    const now = new Date();
+    const h = now.getHours(), m = now.getMinutes();
+    const mins = h * 60 + m;
+
+    const events = [
+      { idx: 0, start: 7*60+30,  end: 10*60 },
+      { idx: 1, start: 10*60+30, end: 11*60 },
+      { idx: 2, start: 12*60+30, end: 13*60+30 },
+      { idx: 3, start: 19*60,    end: 23*60+59 },
+    ];
+    events.forEach(ev => {
+      const card = document.querySelector(`.event-card[data-index="${ev.idx}"]`);
+      if (!card) return;
+      let badge = card.querySelector('.now-badge');
+      if (mins >= ev.start && mins <= ev.end) {
+        if (!badge) {
+          const timeEl = card.querySelector('.event-time');
+          badge = document.createElement('span');
+          badge.className = 'now-badge';
+          badge.innerHTML = '<div class="now-dot"></div>Одоо';
+          timeEl.appendChild(badge);
+        }
+      } else {
+        if (badge) badge.remove();
+      }
+    });
+  }
+  checkNow();
+  setInterval(checkNow, 30000);
+
+  // ── Countdown to 19:00 ──
+  function updateCountdown() {
+    const now = new Date();
+    // target: today March 8 at 19:00, or next occurrence
+    const target = new Date(now);
+    target.setHours(19, 0, 0, 0);
+
+    let diff = target - now;
+    if (diff < 0) {
+      // Event started - show celebratory message
+      document.getElementById('cd-h').textContent = '🎉';
+      document.getElementById('cd-m').textContent = '🎤';
+      document.getElementById('cd-s').textContent = '🌹';
+      return;
+    }
+    const totalSecs = Math.floor(diff / 1000);
+    const h = Math.floor(totalSecs / 3600);
+    const mm = Math.floor((totalSecs % 3600) / 60);
+    const ss = totalSecs % 60;
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(mm).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(ss).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── Smooth scroll ──
+  document.querySelector('.scroll-cta').addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('countdown-sec').scrollIntoView({behavior:'smooth'});
+  });
+</script>
+</body>
+</html>
