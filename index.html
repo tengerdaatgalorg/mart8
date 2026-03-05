@@ -476,7 +476,7 @@
   </svg>
 
   <div class="hero-inner">
-    <div class="date-badge">🌹 2025 · Олон Улсын · Эмэгтэйчүүдийн өдөр</div>
+    <div class="date-badge">🌹 2026 · Олон Улсын · Эмэгтэйчүүдийн өдөр</div>
     <h1 class="hero-title">
       <em>Март</em>
       <strong>8</strong>
@@ -585,7 +585,7 @@
             <span class="karaoke-pulse">🎤</span>
           </div>
           <div class="event-time">
-            19:00 хэмжих
+            19:00
             <span>Oroi · Evening Event <span class="badge-new">✨ Special</span></span>
           </div>
           <div class="event-name">Баярын Хүлээн авалт</div>
@@ -721,8 +721,7 @@
   function updateCountdown() {
     const now = new Date();
     // target: today March 8 at 19:00, or next occurrence
-    const target = new Date(now);
-    target.setHours(19, 0, 0, 0);
+    const target = new Date(2026, 2, 6, 19, 0, 0, 0); // March 6, 2026 at 19:00
 
     let diff = target - now;
     if (diff < 0) {
